@@ -1,0 +1,11 @@
+name: Quik
+description: Quickstart Template. Please change.
+author: Gavenda
+website: https://gavenda.work
+
+depend:
+  - Kotlin
+
+api-version: '1.16'
+version: ${project.version}
+main: work.gavenda.quik.Plugin

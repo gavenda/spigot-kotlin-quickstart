@@ -1,0 +1,3 @@
+# Database configuration
+db:
+  file: quik.db
