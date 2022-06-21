@@ -3,9 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation("com.github.jengelman.gradle.plugins:shadow:6.0.0")
-}
-
-repositories {
-    jcenter()
+    // Hacky way to add versionCatalogs to "main"
+    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+    implementation(files(mcLibs.javaClass.superclass.protectionDomain.codeSource.location))
 }

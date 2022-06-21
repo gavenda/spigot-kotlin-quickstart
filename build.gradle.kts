@@ -1,43 +1,35 @@
-import org.jetbrains.kotlin.gradle.tasks.*
+import java.io.ByteArrayOutputStream
 
 plugins {
     base
-    kotlin("jvm") version Version.KOTLIN
+    alias(libs.plugins.kotlin.jvm)
+}
+
+val gitHash: String = ByteArrayOutputStream().use { outputStream ->
+    project.exec {
+        commandLine("git")
+        args("rev-parse", "--short", "HEAD")
+        standardOutput = outputStream
+    }
+    outputStream.toString().trim()
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 allprojects {
     group = "work.gavenda.quik"
-    version = "1.0.0"
-
-    repositories {
-        jcenter()
-        maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots")
-    }
-
-    tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
-    }
+    version = "1.0.0-SNAPSHOT"
 }
 
-subprojects {
-    ext {
-        set("kotlinVersion", Version.KOTLIN)
-    }
+tasks.register("version") {
+    group = "help"
+    description = "Prints project version."
 
-    // Copy all artifacts to root build/libs
-    val copyArtifacts = tasks.register<Copy>("copyArtifacts") {
-        val distDir = file("$rootDir/build/libs")
-        val srcDir = file("$buildDir/libs")
-
-        from(srcDir)
-        into(distDir)
-    }
-
-    afterEvaluate {
-        tasks.build {
-            finalizedBy(copyArtifacts)
-        }
+    doLast {
+        println(project.version)
     }
 }

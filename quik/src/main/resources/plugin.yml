@@ -2,10 +2,9 @@ name: Quik
 description: Quickstart Template. Please change.
 author: Gavenda
 website: https://gavenda.work
-
-depend:
-  - Kotlin
-
-api-version: '1.16'
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.0
+  - org.jetbrains.kotlin:kotlin-reflect:1.7.0
+api-version: '1.19'
 version: ${project.version}
 main: work.gavenda.quik.Plugin

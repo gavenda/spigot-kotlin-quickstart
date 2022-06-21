@@ -1,10 +1,11 @@
 plugins {
-    kotlin("jvm")
-    id("com.github.johnrengelman.shadow")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.shadow)
 }
 
-spigotPlugin("SpigotPlugin")
+minecraftPlugin("Quik")
 
 dependencies {
-    // Your dependencies
+    compileOnly(libs.kotlin.stdlib.jdk8)
+    compileOnly(mcLibs.spigot.api)
 }
